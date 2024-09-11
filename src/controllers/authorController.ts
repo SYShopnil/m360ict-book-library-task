@@ -6,7 +6,7 @@ export const getAuthors = async (req: Request, res: Response) => {
   res.json(authors);
 };
 
-export const createAuthor = async (req: Request, res: Response) => {
+export const registerNewAuthor = async (req: Request, res: Response) => {
   const author = await AuthorModel.createAuthor(req.body);
   res.status(201).json(author);
 };
