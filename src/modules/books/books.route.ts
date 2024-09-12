@@ -10,9 +10,11 @@ import { validateBook } from './dtos//validateBook';
 import { auth } from '../../middleware/authentication';
 import { updateBookValidator } from './dtos/updateBook';
 import { deleteBookValidator } from './dtos/deleteBookValidator';
+import { bookListFilterByAuthorIdValidator } from './dtos/bookListByAuthorIdValidator';
+import { allBookListValidator } from './dtos/get-all-book-validator';
 
 const router = Router();
-router.get('/books', auth, getBooks);
+router.get('/books', allBookListValidator, auth, getBooks);
 router.get('/book/:id', auth, getBookById);
 router.post('/book/create', validateBook, auth, createBook);
 router.put('/book/update/:id', updateBookValidator, auth, updateBookById);

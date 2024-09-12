@@ -4,12 +4,13 @@ import { IBook } from '../../type/entity';
 interface GetBooksOptions {
   page: number;
   pageSize: number;
-  title?: string; // Optional filter by title
+  title?: string;
+  author?: string;
 }
 
 export default {
   // Get all books
-  async getBooks({ page, pageSize, title }: GetBooksOptions) {
+  async getBooks({ page, pageSize, title, author }: GetBooksOptions) {
     const offset = (page - 1) * pageSize;
 
     const query = knex('books')
@@ -18,11 +19,17 @@ export default {
         'books.*',
         'authors.name as author_name',
         'authors.bio as authors_bio',
-        'authors.id as authors_id',
       )
       .modify((queryBuilder) => {
         if (title) {
-          queryBuilder.where('books.title', 'like', `%${title}%`);
+          queryBuilder.whereRaw('LOWER(books.title) LIKE ?', [
+            `%${title.toLowerCase()}%`,
+          ]);
+        }
+      })
+      .modify((queryBuilder) => {
+        if (author) {
+          queryBuilder.where({ author_id: author });
         }
       })
       .offset(offset)
@@ -32,7 +39,14 @@ export default {
     const [totalCountResult] = await knex('books')
       .modify((queryBuilder) => {
         if (title) {
-          queryBuilder.where('title', 'like', `%${title}%`);
+          queryBuilder.whereRaw('LOWER(books.title) LIKE ?', [
+            `%${title.toLowerCase()}%`,
+          ]);
+        }
+      })
+      .modify((queryBuilder) => {
+        if (author) {
+          queryBuilder.where({ author_id: author });
         }
       })
       .count('id as totalCount');
@@ -48,7 +62,14 @@ export default {
 
   // Get all books by a specific author
   async getBooksByAuthor(authorId: number) {
-    return knex('books').where({ author_id: authorId });
+    return knex('books')
+      .where({ author_id: authorId })
+      .leftJoin('author', 'books.author_id', 'author.id')
+      .select(
+        'books.*',
+        'authors.name as author_name',
+        'authors.bio as authors_bio',
+      );
   },
 
   // Create a new book

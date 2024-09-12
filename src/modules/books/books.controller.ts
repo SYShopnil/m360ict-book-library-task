@@ -6,22 +6,24 @@ export const getBooks = async (req: Request, res: Response) => {
   try {
     // Extract query parameters for pagination and filtering
     const page = parseInt(req.query.page as string, 10) || 1;
-    const pageSize = parseInt(req.query.limit as string, 10) || 10;
-    const title = req.query.title as string | undefined;
+    const limit = parseInt(req.query.limit as string, 10) || 10;
+    const searchBy = req.query.searchBy as string | undefined;
+    const authorId = req.query.author as string | undefined;
 
     const { books, totalCount } = await BookService.getBooks({
       page,
-      pageSize,
-      title,
+      pageSize: limit,
+      title: searchBy,
+      author: authorId,
     });
 
-    const totalPages = Math.ceil(totalCount / pageSize);
+    const totalPages = Math.ceil(totalCount / limit);
 
     res.json({
       books,
       pagination: {
         page,
-        pageSize,
+        pageSize: limit,
         totalPages,
         totalCount,
       },
