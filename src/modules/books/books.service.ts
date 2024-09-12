@@ -1,9 +1,43 @@
-import knex from '../config/database';
+import knex from '../../config/database';
+
+interface GetBooksOptions {
+  page: number;
+  pageSize: number;
+  title?: string; // Optional filter by title
+}
 
 export default {
   // Get all books
-  async getAllBooks() {
-    return knex('books').select('*');
+  async getBooks({ page, pageSize, title }: GetBooksOptions) {
+    const offset = (page - 1) * pageSize;
+
+    const query = knex('books')
+      .leftJoin('authors', 'books.author_id', 'authors.id')
+      .select(
+        'books.*',
+        'authors.name as author_name',
+        'authors.bio as authors_bio',
+        'authors.id as authors_id',
+      )
+      .modify((queryBuilder) => {
+        if (title) {
+          queryBuilder.where('books.title', 'like', `%${title}%`);
+        }
+      })
+      .offset(offset)
+      .limit(pageSize);
+
+    // Get total count of records (for pagination purposes)
+    const [totalCountResult] = await knex('books')
+      .modify((queryBuilder) => {
+        if (title) {
+          queryBuilder.where('title', 'like', `%${title}%`);
+        }
+      })
+      .count('id as totalCount');
+
+    const books = await query;
+    return { books, totalCount: totalCountResult.totalCount };
   },
 
   // Get a single book by ID
