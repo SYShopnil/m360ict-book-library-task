@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
     "build": "tsc",
-    "start:full": "npm run migrate:latest && npm run build && node dist/src/server.js",
+    "start:full": "npm run migrate:latest && node dist/src/server.js",
     "start": "node dist/src/server.js",
     "migrate:latest": "npx knex migrate:latest"
   },
