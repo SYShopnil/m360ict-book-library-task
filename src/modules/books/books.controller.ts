@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import BookService from './books.service';
 import booksService from './books.service';
+import authorService from '../author/author.service';
+import { faker } from '@faker-js/faker';
+import { IBook } from '../../type/entity';
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
@@ -133,6 +136,78 @@ export const deleteBookById = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({
       message: 'Some internal error',
+      err: err,
+    });
+  }
+};
+
+//For test (insert random book for test)
+export const insertDummyBookForTest = async (req: Request, res: Response) => {
+  try {
+    const { totalCount: totalBook } = await booksService.getBooks({
+      page: 1,
+      pageSize: 10,
+    });
+
+    //check is there have already 50++ book or not
+    if (totalBook <= 50) {
+      const authors = await authorService.getAllAuthors();
+
+      // check that is there have existing author or not
+      if (+authors.total) {
+        const newBookList: IBook[] = [];
+        for (let authorCount = 0; authorCount < +authors.total; authorCount++) {
+          const generateBookAmount =
+            Math.floor(Math.random() * (100 - 80 + 1)) + 80; //any number between 80 to 100
+          for (
+            let bookCount = 1;
+            bookCount <= generateBookAmount;
+            bookCount++
+          ) {
+            const authorId = authors.authors[authorCount]['id']; //get a single author
+            const newBook: IBook = {
+              author_id: authorId,
+              description: faker.lorem.paragraphs(),
+              published_date: faker.date.past().toISOString().split('T')[0], // Use a valid past date
+              title: faker.lorem.sentence(), // Use faker.sentence() for a valid title
+            };
+            newBookList.push(newBook);
+          }
+        }
+        const books = await BookService.createMultipleBook(newBookList); //newly added books
+        if (!books.length) {
+          res.status(500).json({
+            message: 'Book Failed To Insert',
+            books: null,
+            err: null,
+          });
+        } else {
+          res.status(201).json({
+            message: `${books.length} book has created!!!`,
+            books,
+            err: null,
+          });
+        }
+      } else {
+        res.status(409).json({
+          message:
+            'No more book will be add already there have more than 50 books!!!',
+          books: null,
+          err: null,
+        });
+      }
+    } else {
+      res.status(404).json({
+        message: 'No Author has found',
+        books: null,
+        err: null,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(409).json({
+      message: 'Internal Error',
+      books: null,
       err: err,
     });
   }

@@ -83,6 +83,11 @@ export default {
     return newBook;
   },
 
+  async createMultipleBook(booksData: IBook[]) {
+    const newBookList = await knex('books').insert(booksData).returning('*');
+    return newBookList;
+  },
+
   // Update a book by ID
   async updateBook(id: number, bookData: IBook) {
     const [updatedBook] = await knex('books')

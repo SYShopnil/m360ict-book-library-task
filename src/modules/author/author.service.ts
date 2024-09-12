@@ -3,8 +3,8 @@ import { IRegisterAuthor } from '../../type/author_type';
 import { IAuthor } from '../../type/entity';
 
 export default {
-  async getAllAuthors(page: number, limit: number, name: string) {
-    const offset = (page - 1) * limit;
+  async getAllAuthors(page?: number, limit?: number, name?: string) {
+    const offset = ((page || 1) - 1) * (limit || 10);
 
     const query = knex('authors')
       .select(['name', 'bio', 'birthdate', 'email', 'id'])
@@ -13,8 +13,14 @@ export default {
           qb.whereRaw('LOWER(name) LIKE ?', [`%${name.toLowerCase()}%`]); // Case-insensitive search
         }
       })
-      .limit(limit)
-      .offset(offset);
+      .modify((qb) => {
+        if (page || limit) {
+          qb.limit(limit || 10);
+          qb.offset(offset);
+        }
+      });
+    // .limit(limit)
+    // .offset(offset);
 
     const totalResult = await knex('authors')
       .count('* as count')
@@ -26,7 +32,7 @@ export default {
       .first();
 
     const total = totalResult.count;
-    const totalPages = Math.ceil(total / limit);
+    const totalPages = Math.ceil(total / (limit || 10));
 
     const authors = await query;
 

@@ -19,7 +19,9 @@ const knex = Knex({
 knex
   .raw('SELECT 1')
   .then(() => {
-    console.log('PostgreSQL connected successfully using Knex!');
+    console.log(
+      `PostgreSQL connected successfully using Knex! at Port:${process.env.DB_PORT}`,
+    );
   })
   .catch((err) => {
     console.error('Error connecting to PostgreSQL with Knex:', err.message);

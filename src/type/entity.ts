@@ -1,13 +1,13 @@
 export interface IAuthor {
-  id: string;
+  id: string | number;
   name: string;
   bio: string;
-  birthdate: string;
+  birthdate: string | Date;
 }
 export interface IBook {
-  id: string;
+  id?: string | number;
   title: string;
   description: string;
-  published_date: string;
+  published_date: string | Date;
   author_id: string;
 }

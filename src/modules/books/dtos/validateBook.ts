@@ -7,7 +7,7 @@ const bookSchema = Joi.object({
   published_date: Joi.date().required(),
 });
 
-export const validateBook = (
+export const validateBookInsertion = (
   req: Request,
   res: Response,
   next: NextFunction,

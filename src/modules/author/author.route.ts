@@ -11,17 +11,18 @@ import { validateAuthor } from './dtos/validateAuthor';
 import { validateAuthorLogin } from './dtos/validateLogin';
 import { auth } from '../../middleware/authentication';
 import { validateAuthorUpdate } from './dtos/author-update';
+import { validateIndividualAuthorData } from './dtos/get-individual-author-validator';
 
 const router = Router();
 router.get('/authors', auth, getAuthors);
-router.get('/author/:id', auth, getAuthorById);
+router.get('/authors/:id', validateIndividualAuthorData, auth, getAuthorById);
 router.get('/test/author/insert', insertFakeAuthorForTest); //fake api to store 50 authors for test
 
-router.post('/author/register', validateAuthor, registerNewAuthor);
+router.post('/authors', validateAuthor, registerNewAuthor);
 router.post('/author/login', validateAuthorLogin, authorLogin);
 
-router.put('/author/update/:id', validateAuthorUpdate, auth, updateAuthorById);
+router.put('/authors/:id', validateAuthorUpdate, auth, updateAuthorById);
 
-router.delete('/author/delete/:id', auth, deleteAuthorById);
+router.delete('/authors/:id', auth, deleteAuthorById);
 
 export default router;
