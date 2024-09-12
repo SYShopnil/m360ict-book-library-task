@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import authorService from '../services/authorServices';
+import authorService from '../modules/author/author.service';
 
 interface CustomJwtPayload extends JwtPayload {
   id: number;

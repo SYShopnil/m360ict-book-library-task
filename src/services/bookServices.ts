@@ -17,19 +17,30 @@ export default {
   },
 
   // Create a new book
-  async createBook(bookData: { title: string; description?: string; published_date: string; author_id: number }) {
-    const [newBook] = await knex('books')
-      .insert(bookData)
-      .returning('*');  // This returns the inserted row with all columns
+  async createBook(bookData: {
+    title: string;
+    description?: string;
+    published_date: string;
+    author_id: number;
+  }) {
+    const [newBook] = await knex('books').insert(bookData).returning('*'); // This returns the inserted row with all columns
     return newBook;
   },
 
   // Update a book by ID
-  async updateBook(id: number, bookData: { title?: string; description?: string; published_date?: string; author_id?: number }) {
+  async updateBook(
+    id: number,
+    bookData: {
+      title?: string;
+      description?: string;
+      published_date?: string;
+      author_id?: number;
+    },
+  ) {
     const [updatedBook] = await knex('books')
       .where({ id })
       .update(bookData)
-      .returning('*');  // This returns the updated row with all columns
+      .returning('*'); // This returns the updated row with all columns
     return updatedBook;
   },
 

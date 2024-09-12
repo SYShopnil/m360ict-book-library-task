@@ -1,5 +1,5 @@
 import express from 'express';
-import authorRoutes from './routes/authorRoutes';
+import authorRoutes from './modules/author/author.route';
 import bookRoutes from './routes/bookRoutes';
 import { errorHandler } from './utils/errorHandler';
 import cors from 'cors';

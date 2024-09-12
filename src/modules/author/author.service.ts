@@ -1,6 +1,6 @@
-import knex from '../config/database';
-import { IRegisterAuthor } from '../type/author_type';
-import { IAuthor } from '../type/entity';
+import knex from '../../config/database';
+import { IRegisterAuthor } from '../../type/author_type';
+import { IAuthor } from '../../type/entity';
 
 export default {
   async getAllAuthors(page: number, limit: number, name: string) {
