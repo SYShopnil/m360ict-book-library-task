@@ -12,7 +12,7 @@ export const registerNewAuthor = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
   const body: IRegisterAuthor = {
     birthdate: req.body.birthdate,
     email: req.body.email,
@@ -33,7 +33,16 @@ export const authorLogin = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { password, email } = req.body;
+    interface IAuthorLoginBOdy {
+      password: string;
+      email: string;
+    }
+    interface IPayloadDataOfAccessToken {
+      id: number;
+      email: string;
+    }
+
+    const { password, email }: IAuthorLoginBOdy = req.body;
     const user = await AuthorServices.getAuthorByEmail(email);
     if (!user) {
       res.status(404).json({
@@ -54,7 +63,7 @@ export const authorLogin = async (
       });
     }
 
-    const payloadDataOfAccessToken = {
+    const payloadDataOfAccessToken: IPayloadDataOfAccessToken = {
       id: user.id,
       email: user.email,
     };

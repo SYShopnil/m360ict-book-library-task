@@ -2,8 +2,18 @@ import knex from '../../config/database';
 import { IRegisterAuthor } from '../../type/author_type';
 import { IAuthor } from '../../type/entity';
 
+interface IGetAllAuthors {
+  authors: IAuthor[];
+  total: number;
+  totalPages: number;
+}
+
 export default {
-  async getAllAuthors(page?: number, limit?: number, name?: string) {
+  async getAllAuthors(
+    page?: number,
+    limit?: number,
+    name?: string,
+  ): Promise<IGetAllAuthors> {
     const offset = ((page || 1) - 1) * (limit || 10);
 
     const query = knex('authors')
@@ -19,9 +29,6 @@ export default {
           qb.offset(offset);
         }
       });
-    // .limit(limit)
-    // .offset(offset);
-
     const totalResult = await knex('authors')
       .count('* as count')
       .modify((qb) => {

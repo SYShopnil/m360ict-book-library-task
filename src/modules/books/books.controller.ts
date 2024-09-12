@@ -21,16 +21,29 @@ export const getBooks = async (req: Request, res: Response) => {
     });
 
     const totalPages = Math.ceil(totalCount / limit);
-
-    res.json({
-      books,
-      pagination: {
-        page,
-        pageSize: limit,
-        totalPages,
-        totalCount,
-      },
-    });
+    if (books && books.length) {
+      res.status(202).json({
+        message: `${books.length} ${books.length > 1 ? 'books' : 'book'} has found!!`,
+        books,
+        pagination: {
+          page,
+          pageSize: limit,
+          totalPages,
+          totalCount,
+        },
+      });
+    } else {
+      res.status(404).json({
+        message: `Book Not Found!!`,
+        books,
+        pagination: {
+          page,
+          pageSize: limit,
+          totalPages,
+          totalCount,
+        },
+      });
+    }
   } catch (error) {
     res
       .status(500)
@@ -164,7 +177,7 @@ export const insertDummyBookForTest = async (req: Request, res: Response) => {
             bookCount <= generateBookAmount;
             bookCount++
           ) {
-            const authorId = authors.authors[authorCount]['id']; //get a single author
+            const authorId = +authors.authors[authorCount]['id']; //get a single author
             const newBook: IBook = {
               author_id: authorId,
               description: faker.lorem.paragraphs(),
@@ -205,7 +218,7 @@ export const insertDummyBookForTest = async (req: Request, res: Response) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(409).json({
+    res.status(500).json({
       message: 'Internal Error',
       books: null,
       err: err,

@@ -14,9 +14,9 @@ export const getAuthors = async (
 ): Promise<void> => {
   try {
     // Get query parameters for pagination and search
-    const page = parseInt(req.query.page as string) || 1; // Default page is 1
-    const limit = parseInt(req.query.limit as string) || 2; // Default limit is 2 (can be changed)
-    const name = (req.query.name as string) || ''; // Default search term is empty
+    const page: number = parseInt(req.query.page as string) || 1; // Default page is 1
+    const limit: number = parseInt(req.query.limit as string) || 2; // Default limit is 2 (can be changed)
+    const name: string = (req.query.name as string) || ''; // Default search term is empty
 
     // Call the service to get authors with pagination and search
     const { authors, total, totalPages } = await AuthorServices.getAllAuthors(
@@ -35,7 +35,7 @@ export const getAuthors = async (
         err: null,
       });
     } else {
-      res.status(200).json({
+      res.status(404).json({
         message: 'No authors found!',
         authors: [],
         currentPage: page,
