@@ -125,7 +125,7 @@ export const deleteAuthorById = async (
         err: null,
       });
     } else {
-      if (+req.params.id == (req.user && req.user.id)) {
+      if (+req.params.id == req.user.id) {
         res.status(403).json({
           message: 'LoggedIn user can not delete it self',
           err: null,
@@ -179,12 +179,12 @@ export const insertFakeAuthorForTest = async (
     }
 
     try {
-      const result =
+      const newAuthorList =
         await AuthorServices.createMultipleAuthors(authorsToInsert);
-      if (result.err) {
-        res.status(500).json(result);
+      if (newAuthorList.err) {
+        res.status(500).json(newAuthorList);
       } else {
-        res.status(201).json(result);
+        res.status(201).json(newAuthorList);
       }
     } catch (err) {
       res.status(500).json({ message: 'Something went wrong', error: err });

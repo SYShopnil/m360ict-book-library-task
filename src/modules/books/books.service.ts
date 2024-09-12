@@ -1,12 +1,10 @@
 import knex from '../../config/database';
 import { IBook } from '../../type/entity';
-
-interface GetBooksOptions {
-  page: number;
-  pageSize: number;
-  title?: string;
-  author?: string;
-}
+import {
+  GetBooksOptions,
+  IRGetBookById,
+  IRGetBooksByAuthor,
+} from './types/books.type.service';
 
 export default {
   // Get all books
@@ -56,13 +54,16 @@ export default {
   },
 
   // Get a single book by ID
-  async getBookById(id: number) {
-    return knex('books').where({ id }).first();
+  async getBookById(id: number): Promise<IRGetBookById | null> {
+    const book = knex('books').where({ id }).first();
+    return book || null;
   },
 
   // Get all books by a specific author
-  async getBooksByAuthor(authorId: number) {
-    return knex('books')
+  async getBooksByAuthor(
+    authorId: number,
+  ): Promise<IRGetBooksByAuthor[] | null> {
+    const books = knex('books')
       .where({ author_id: authorId })
       .leftJoin('author', 'books.author_id', 'author.id')
       .select(
@@ -70,6 +71,7 @@ export default {
         'authors.name as author_name',
         'authors.bio as authors_bio',
       );
+    return books || null;
   },
 
   // Create a new book

@@ -5,7 +5,7 @@ import authorService from '../author/author.service';
 import { faker } from '@faker-js/faker';
 import { IBook } from '../../type/entity';
 
-export const getBooks = async (req: Request, res: Response) => {
+export const getBooks = async (req: Request, res: Response): Promise<void> => {
   try {
     // Extract query parameters for pagination and filtering
     const page = parseInt(req.query.page as string, 10) || 1;
@@ -51,7 +51,10 @@ export const getBooks = async (req: Request, res: Response) => {
   }
 };
 
-export const createBook = async (req: Request, res: Response) => {
+export const createBook = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const body = {
       ...req.body,
@@ -80,7 +83,10 @@ export const createBook = async (req: Request, res: Response) => {
   }
 };
 
-export const getBookById = async (req: Request, res: Response) => {
+export const getBookById = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const book = await booksService.getBookById(+req.params.id);
     if (!book) {
@@ -105,7 +111,10 @@ export const getBookById = async (req: Request, res: Response) => {
   }
 };
 
-export const updateBookById = async (req: Request, res: Response) => {
+export const updateBookById = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const book = await booksService.updateBook(+req.params.id, req.body);
 
@@ -131,9 +140,12 @@ export const updateBookById = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteBookById = async (req: Request, res: Response) => {
+export const deleteBookById = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const book = await booksService.deleteBook(+req.params.id);
+    const book: number = await booksService.deleteBook(+req.params.id);
 
     if (!book) {
       res.status(404).json({
@@ -155,7 +167,10 @@ export const deleteBookById = async (req: Request, res: Response) => {
 };
 
 //For test (insert random book for test)
-export const insertDummyBookForTest = async (req: Request, res: Response) => {
+export const insertDummyBookForTest = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const { totalCount: totalBook } = await booksService.getBooks({
       page: 1,
