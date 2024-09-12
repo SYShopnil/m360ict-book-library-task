@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { IRegisterAuthor } from '../../type/author_type';
+import {
+  IAuthorLoginBOdy,
+  IPayloadDataOfAccessToken,
+} from './types/author.type.auth.controller';
 
 dotenv.config();
 
@@ -33,15 +37,6 @@ export const authorLogin = async (
   res: Response,
 ): Promise<void> => {
   try {
-    interface IAuthorLoginBOdy {
-      password: string;
-      email: string;
-    }
-    interface IPayloadDataOfAccessToken {
-      id: number;
-      email: string;
-    }
-
     const { password, email }: IAuthorLoginBOdy = req.body;
     const user = await AuthorServices.getAuthorByEmail(email);
     if (!user) {
@@ -52,8 +47,8 @@ export const authorLogin = async (
         err: null,
       });
     }
-
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const userPassword: string = (user && user.password) || '';
+    const isPasswordMatch = await bcrypt.compare(password, userPassword);
     if (!isPasswordMatch) {
       res.status(404).json({
         message: 'Password not match!!!',
@@ -64,8 +59,8 @@ export const authorLogin = async (
     }
 
     const payloadDataOfAccessToken: IPayloadDataOfAccessToken = {
-      id: user.id,
-      email: user.email,
+      id: user ? user.id : NaN,
+      email: user ? user.email : '',
     };
     const accessToken = await jwt.sign(
       payloadDataOfAccessToken,

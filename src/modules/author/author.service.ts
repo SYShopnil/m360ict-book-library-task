@@ -1,12 +1,11 @@
 import knex from '../../config/database';
 import { IRegisterAuthor } from '../../type/author_type';
 import { IAuthor } from '../../type/entity';
-
-interface IGetAllAuthors {
-  authors: IAuthor[];
-  total: number;
-  totalPages: number;
-}
+import {
+  IGetAllAuthors,
+  IRGetAuthorByEmail,
+  IRGetAuthorById,
+} from './types/author.type.service';
 
 export default {
   async getAllAuthors(
@@ -50,15 +49,18 @@ export default {
     };
   },
 
-  async getAuthorById(id: number) {
-    return knex('authors')
+  async getAuthorById(id: number): Promise<IRGetAuthorById | null> {
+    const author = await knex('authors')
       .where({ id })
       .first()
       .select('name', 'bio', 'birthdate', 'email', 'id');
+
+    return author || null; // Returns either the author or null if not found
   },
 
-  async getAuthorByEmail(email: string) {
-    return knex('authors').where({ email }).first();
+  async getAuthorByEmail(email: string): Promise<IRGetAuthorByEmail | null> {
+    const author = knex('authors').where({ email }).first();
+    return author || null;
   },
 
   async createAuthor(authorData: IRegisterAuthor) {

@@ -55,7 +55,7 @@ export const createBook = async (req: Request, res: Response) => {
   try {
     const body = {
       ...req.body,
-      author_id: req.user.id,
+      author_id: req.user && req.user.id,
     };
     const book = await BookService.createBook(body);
     if (!book) {

@@ -125,7 +125,7 @@ export const deleteAuthorById = async (
         err: null,
       });
     } else {
-      if (req.params.id == req.user.id) {
+      if (+req.params.id == (req.user && req.user.id)) {
         res.status(403).json({
           message: 'LoggedIn user can not delete it self',
           err: null,
@@ -158,28 +158,36 @@ export const insertFakeAuthorForTest = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const authorsToInsert: IRegisterAuthor[] = [];
-
-  for (let i = 0; i < 50; i++) {
-    const hashPassword = await bcrypt.hash('author123', 10);
-    const authorData: IRegisterAuthor = {
-      name: faker.name.firstName(),
-      bio: faker.lorem.sentence(),
-      birthdate: faker.date.anytime(),
-      email: faker.internet.email(),
-      password: hashPassword,
-    };
-    authorsToInsert.push(authorData);
-  }
-
-  try {
-    const result = await AuthorServices.createMultipleAuthors(authorsToInsert);
-    if (result.err) {
-      res.status(500).json(result);
-    } else {
-      res.status(201).json(result);
+  const authors = await authorServices.getAllAuthors();
+  if (authors.authors.length >= 50) {
+    res.status(409).json({
+      message:
+        'No more author will be add already there have more than 50 authors!!!',
+    });
+  } else {
+    const authorsToInsert: IRegisterAuthor[] = [];
+    for (let i = 0; i < 50; i++) {
+      const hashPassword = await bcrypt.hash('author123', 10);
+      const authorData: IRegisterAuthor = {
+        name: faker.name.firstName(),
+        bio: faker.lorem.sentence(),
+        birthdate: faker.date.anytime(),
+        email: faker.internet.email(),
+        password: hashPassword,
+      };
+      authorsToInsert.push(authorData);
     }
-  } catch (err) {
-    res.status(500).json({ message: 'Something went wrong', error: err });
+
+    try {
+      const result =
+        await AuthorServices.createMultipleAuthors(authorsToInsert);
+      if (result.err) {
+        res.status(500).json(result);
+      } else {
+        res.status(201).json(result);
+      }
+    } catch (err) {
+      res.status(500).json({ message: 'Something went wrong', error: err });
+    }
   }
 };

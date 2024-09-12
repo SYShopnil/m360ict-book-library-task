@@ -20,7 +20,13 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const secretKey = process.env.JWT_CODE || 'sdfsdf;asdjflsdajflasdf';
     const decoded = jwt.verify(token, secretKey) as CustomJwtPayload;
     const loggedInUser = await authorService.getAuthorById(decoded.id);
-    req.user = loggedInUser;
+    if (loggedInUser) {
+      req.user = loggedInUser;
+    } else {
+      res.status(404).json({
+        message: 'Author Not Found!!',
+      });
+    }
     next();
   } catch (error) {
     res.status(400).json({ message: 'Invalid token.' });
