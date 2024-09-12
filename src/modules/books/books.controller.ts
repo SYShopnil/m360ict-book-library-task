@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import BookService from './books.service';
+import booksService from './books.service';
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
@@ -53,10 +54,84 @@ export const createBook = async (req: Request, res: Response) => {
       });
     }
   } catch (err) {
-    res.status(201).json({
+    res.status(500).json({
       message: 'Some internal error',
       err: err,
       book: null,
+    });
+  }
+};
+
+export const getBookById = async (req: Request, res: Response) => {
+  try {
+    const book = await booksService.getBookById(+req.params.id);
+    if (!book) {
+      res.status(404).json({
+        message: 'Book not found!!',
+        err: null,
+        book: null,
+      });
+    } else {
+      res.status(202).json({
+        message: `Book Found!!`,
+        err: null,
+        book,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'Some internal error',
+      err: err,
+      book: null,
+    });
+  }
+};
+
+export const updateBookById = async (req: Request, res: Response) => {
+  try {
+    const book = await booksService.updateBook(+req.params.id, req.body);
+
+    if (!book) {
+      res.status(404).json({
+        message: 'Book not found!!',
+        err: null,
+        book: null,
+      });
+    } else {
+      res.status(202).json({
+        message: `Book Successfully Updated!!`,
+        err: null,
+        book,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'Some internal error',
+      err: err,
+      book: null,
+    });
+  }
+};
+
+export const deleteBookById = async (req: Request, res: Response) => {
+  try {
+    const book = await booksService.deleteBook(+req.params.id);
+
+    if (!book) {
+      res.status(404).json({
+        message: 'Book Delete Failed or Book not found!!',
+        err: null,
+      });
+    } else {
+      res.status(202).json({
+        message: `Book Successfully Deleted!!`,
+        err: null,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'Some internal error',
+      err: err,
     });
   }
 };

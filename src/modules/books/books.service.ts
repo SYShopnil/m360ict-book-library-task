@@ -1,4 +1,5 @@
 import knex from '../../config/database';
+import { IBook } from '../../type/entity';
 
 interface GetBooksOptions {
   page: number;
@@ -62,15 +63,7 @@ export default {
   },
 
   // Update a book by ID
-  async updateBook(
-    id: number,
-    bookData: {
-      title?: string;
-      description?: string;
-      published_date?: string;
-      author_id?: number;
-    },
-  ) {
+  async updateBook(id: number, bookData: IBook) {
     const [updatedBook] = await knex('books')
       .where({ id })
       .update(bookData)
