@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
+    "build:production": "npm install && tsc",
     "build": "tsc",
     "start:production": "npm run migrate:latest && node dist/src/server.js",
     "start": "node dist/src/server.js",
