@@ -166,8 +166,9 @@ export const insertFakeAuthorForTest = async (
     });
   } else {
     const authorsToInsert: IRegisterAuthor[] = [];
+    const commonPassword = 'author123';
     for (let i = 0; i < 50; i++) {
-      const hashPassword = await bcrypt.hash('author123', 10);
+      const hashPassword = await bcrypt.hash(commonPassword, 10);
       const authorData: IRegisterAuthor = {
         name: faker.name.firstName(),
         bio: faker.lorem.sentence(),

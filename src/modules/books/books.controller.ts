@@ -176,7 +176,6 @@ export const insertDummyBookForTest = async (
       page: 1,
       pageSize: 10,
     });
-
     //check is there have already 50++ book or not
     if (totalBook <= 50) {
       const authors = await authorService.getAllAuthors();
@@ -226,7 +225,7 @@ export const insertDummyBookForTest = async (
       }
     } else {
       res.status(404).json({
-        message: 'No Author has found',
+        message: 'Already there have 50++ book in the db can not store more',
         books: null,
         err: null,
       });
