@@ -13,16 +13,17 @@ const knex = Knex({
     database: process.env.DB_DATABASE,
     port: Number(process.env.DB_PORT),
   },
-  pool: { min: 2, max: 10 },  // Optional: Define pool size
+  pool: { min: 2, max: 10 },
 });
 
-knex.raw('SELECT 1')
+knex
+  .raw('SELECT 1')
   .then(() => {
     console.log('PostgreSQL connected successfully using Knex!');
   })
   .catch((err) => {
     console.error('Error connecting to PostgreSQL with Knex:', err.message);
-    process.exit(1);  // Exit the process if the connection fails
+    process.exit(1);
   });
 
 export default knex;

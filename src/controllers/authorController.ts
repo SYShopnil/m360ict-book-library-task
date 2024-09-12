@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import authorServices from '../services/authorServices';
+import { faker } from '@faker-js/faker';
 
 dotenv.config();
 
@@ -13,21 +14,37 @@ export const getAuthors = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const authors = await AuthorServices.getAllAuthors();
+    // Get query parameters for pagination and search
+    const page = parseInt(req.query.page as string) || 1; // Default page is 1
+    const limit = parseInt(req.query.limit as string) || 2; // Default limit is 2 (can be changed)
+    const name = (req.query.name as string) || ''; // Default search term is empty
+
+    // Call the service to get authors with pagination and search
+    const { authors, total, totalPages } = await AuthorServices.getAllAuthors(
+      page,
+      limit,
+      name,
+    );
+
     if (authors.length) {
-      res.status(202).json({
-        message: `${authors.length} author found!!`,
+      res.status(200).json({
+        message: `${total} author(s) found.`,
         authors,
+        currentPage: page,
+        totalPages,
+        totalResults: total,
         err: null,
       });
     } else {
-      res.status(202).json({
-        message: `No author found!!`,
-        authors,
+      res.status(200).json({
+        message: 'No authors found!',
+        authors: [],
+        currentPage: page,
+        totalPages,
+        totalResults: total,
         err: null,
       });
     }
-    // res.json(authors);
   } catch (err) {
     res.status(500).json({
       message: 'Internal Server Error',
@@ -205,5 +222,36 @@ export const deleteAuthorById = async (
       message: 'Internal Error',
       err: err,
     });
+  }
+};
+
+//For test
+export const insertFakeAuthorForTest = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const authorsToInsert: IRegisterAuthor[] = [];
+
+  for (let i = 0; i < 50; i++) {
+    const hashPassword = await bcrypt.hash('author123', 10);
+    const authorData: IRegisterAuthor = {
+      name: faker.name.firstName(),
+      bio: faker.lorem.sentence(),
+      birthdate: faker.date.anytime(),
+      email: faker.internet.email(),
+      password: hashPassword,
+    };
+    authorsToInsert.push(authorData);
+  }
+
+  try {
+    const result = await AuthorServices.createMultipleAuthors(authorsToInsert);
+    if (result.err) {
+      res.status(500).json(result);
+    } else {
+      res.status(201).json(result);
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong', error: err });
   }
 };

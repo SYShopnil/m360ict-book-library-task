@@ -6,6 +6,7 @@ import {
   getAuthorById,
   updateAuthorById,
   deleteAuthorById,
+  insertFakeAuthorForTest,
 } from '../controllers/authorController';
 import { validateAuthor } from '../middleware/validateAuthor';
 import { validateAuthorLogin } from '../middleware/validateLogin';
@@ -15,6 +16,7 @@ import { validateAuthorUpdate } from '../middleware/author-update';
 const router = Router();
 router.get('/authors', auth, getAuthors);
 router.get('/author/:id', auth, getAuthorById);
+router.get('/test/author/insert', insertFakeAuthorForTest);
 
 router.post('/author/register', validateAuthor, registerNewAuthor);
 router.post('/author/login', validateAuthorLogin, authorLogin);
