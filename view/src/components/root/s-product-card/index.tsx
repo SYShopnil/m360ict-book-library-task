@@ -21,7 +21,7 @@ export function SCard({ image, name, children }: ISCard) {
           width={300}
         />
       </div>
-      <div className={`h-[11.125rem] `}>
+      <div className={`h-[11.125rem] space-y-2 `}>
         {/* <p className="text-[#777777] font-bold text-lg">{name}</p>
         <p className={`text-[#79494B] font-bold text-sm line-clamp-2 mb-4`}>
           {desc}

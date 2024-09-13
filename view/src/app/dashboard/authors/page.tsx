@@ -4,7 +4,7 @@ import { SLoading } from "@src/components/root";
 import { IProductPage } from "@src/types/app/dashboard/products";
 import { IGetAllAuthorReturn } from "@src/types/lib/product-handler";
 import { Suspense } from "react";
-import { SAuthorSection } from "@src/components/compound/s-products-section";
+import { SAuthorSection } from "@src/components/compound/s-author-section";
 
 export default async function AuthorPage({ searchParams }: IProductPage) {
   const currentPage: string = searchParams?.page || "1";

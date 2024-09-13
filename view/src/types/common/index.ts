@@ -13,6 +13,7 @@ export enum EDataTestId {
   rUserList = "rUserList",
   SHeaderMain = "SHeaderMain",
   SProductSection = "SProductSection",
+  SBooksSection = "SBooksSection",
   SProfile = "SProfile",
   CPaginationTrack = "CPaginationTrack",
   RSingleProduct = "RSingleProduct",
