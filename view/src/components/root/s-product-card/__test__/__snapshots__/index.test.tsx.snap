@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When Product Card rendered  Expect it should render successfully 1`] = `
+<div
+  class="max-h-[33rem] w-[18.75rem] text-center "
+  data-testid="SProductCard"
+>
+  <div
+    class="rounded-sm flex justify-center items-center"
+  >
+    <img
+      alt="Computer"
+      data-nimg="1"
+      decoding="async"
+      fetchpriority="high"
+      height="350"
+      src="/_next/image?url=%2Fassert%2Fdemo-product.jpg&w=640&q=75"
+      srcset="/_next/image?url=%2Fassert%2Fdemo-product.jpg&w=384&q=75 1x, /_next/image?url=%2Fassert%2Fdemo-product.jpg&w=640&q=75 2x"
+      style="color: transparent; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"
+      width="300"
+    />
+  </div>
+  <div
+    class="h-[11.125rem] "
+  >
+    <p
+      class="text-[#777777] font-bold text-lg"
+    >
+      Computer
+    </p>
+    <p
+      class="text-[#79494B] font-bold text-[1rem] line-clamp-4"
+    >
+      50000
+      $
+    </p>
+    <p
+      class="text-[#777777] font-bold text-sm line-clamp-2 mb-4"
+    >
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    </p>
+    <div
+      class="flex justify-center items-center"
+    >
+      <a
+        href="/dashboard/products/1"
+        target="_self"
+      >
+        <span
+          class="flex justify-center items-center  "
+        >
+          <span
+            class="text-base md:text-base_2  flex justify-center items-center px-[1rem] py-[0.5rem] rounded-[0.563rem] w-[100%] h-[100%] bg-[#EBF5EC] hover:bg-[#7F4D4F]  duration-[0.5s] text-[#7F4D4F] hover:text-[#EBF5EC]   border-[0.063rem] hover:border-[#EBF5EC] border-[#7F4D4F]   "
+          >
+            <span>
+              View Details
+            </span>
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;

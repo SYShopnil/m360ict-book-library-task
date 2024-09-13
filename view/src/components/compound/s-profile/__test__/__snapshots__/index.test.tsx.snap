@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When Profile has rendered Expect render successfully 1`] = `
+<div
+  data-testid="SProfile"
+>
+  No User Found!!!
+</div>
+`;

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When Pagination Tracker rendered  Expect it should render successfully 1`] = `
+<div
+  class="flex space-x-2"
+  data-testid="CPaginationTrack"
+>
+  <div
+    class="false duration-[0.2s] h-[2rem] w-[2rem]  bg-[#7F4D4F] hover:bg-[#E0E3EA] flex justify-center items-center"
+  >
+    <span
+      class="cursor-pointer false duration-[0.2s]  text-white hover:text-[#7F4D4F]  font-bold text-lg"
+    >
+      1
+    </span>
+  </div>
+  <div
+    class="!bg-[#E0E3EA] duration-[0.2s] h-[2rem] w-[2rem]  bg-[#7F4D4F] hover:bg-[#E0E3EA] flex justify-center items-center"
+  >
+    <span
+      class="cursor-pointer  !text-[#7F4D4F] duration-[0.2s]  text-white hover:text-[#7F4D4F]  font-bold text-lg"
+    >
+      2
+    </span>
+  </div>
+  <div
+    class="false duration-[0.2s] h-[2rem] w-[2rem]  bg-[#7F4D4F] hover:bg-[#E0E3EA] flex justify-center items-center"
+  >
+    <span
+      class="cursor-pointer false duration-[0.2s]  text-white hover:text-[#7F4D4F]  font-bold text-lg"
+    >
+      3
+    </span>
+  </div>
+  <div
+    class="false duration-[0.2s] h-[2rem] w-[2rem]  bg-[#7F4D4F] hover:bg-[#E0E3EA] flex justify-center items-center"
+  >
+    <span
+      class="cursor-pointer false duration-[0.2s]  text-white hover:text-[#7F4D4F]  font-bold text-lg"
+    >
+      4
+    </span>
+  </div>
+  <div
+    class="false duration-[0.2s] h-[2rem] w-[2rem]  bg-[#7F4D4F] hover:bg-[#E0E3EA] flex justify-center items-center"
+  >
+    <span
+      class="cursor-pointer false duration-[0.2s]  text-white hover:text-[#7F4D4F]  font-bold text-lg"
+    >
+      5
+    </span>
+  </div>
+</div>
+`;

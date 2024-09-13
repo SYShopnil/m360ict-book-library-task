@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When Table Body has rendered Expect render successfully 1`] = `
+<div
+  data-testid="RTableBody"
+>
+  <div
+    class="flex bg-white border-b border-gray-300"
+  >
+    <div
+      class="w-3/6 text-center"
+    >
+      sadmanishopnil@gmail.com
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      John Doe
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      <img
+        alt="Profile Pic"
+        class="w-10 h-10 mx-auto rounded-full"
+        src="/assert/default-profile.png"
+      />
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      user
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      male
+    </div>
+  </div>
+  <div
+    class="flex bg-gray-100 border-b border-gray-300"
+  >
+    <div
+      class="w-3/6 text-center"
+    >
+      sadmanishopnil1@gmail.com
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      Jane Smith
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      <img
+        alt="Profile Pic"
+        class="w-10 h-10 mx-auto rounded-full"
+        src="/assert/default-profile.png"
+      />
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      admin
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      male
+    </div>
+  </div>
+  <div
+    class="flex bg-white border-b border-gray-300"
+  >
+    <div
+      class="w-3/6 text-center"
+    >
+      xyz@gmail.com
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      Harry Rose
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      <img
+        alt="Profile Pic"
+        class="w-10 h-10 mx-auto rounded-full"
+        src="/assert/default-profile.png"
+      />
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      user
+    </div>
+    <div
+      class="w-1/6 text-center"
+    >
+      female
+    </div>
+  </div>
+</div>
+`;
