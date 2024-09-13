@@ -13,19 +13,23 @@ interface IGetAllBooks {
   currentPage: string;
   dataLimit: number;
   searchBy?: string;
+  author_id?: string;
 }
 
 export async function getAllBooks({
   currentPage,
   dataLimit: limit,
   searchBy,
+  author_id,
 }: IGetAllBooks): Promise<IGetAllBookReturn> {
   try {
     const cookieStore = cookies();
     const token = cookieStore.get(EAuth.AuthTokenCookieName);
     const url = `${process.env.SERVER_ORIGIN}/books?page=${
       currentPage || 1
-    }&limit=${configProductDataLimit}&searchBy=${searchBy || ""}`;
+    }&limit=${configProductDataLimit}&searchBy=${
+      searchBy || ""
+    }&author=${author_id}`;
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token?.value}`,

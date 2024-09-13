@@ -34,14 +34,18 @@ export async function SBookSection({ requestForGetAllBook }: ISBookSection) {
                   {book.title}
                 </p>
 
-                <p
-                  className={`text-[#79494B] font-bold text-sm line-clamp-2 mb-4`}
-                >
-                  published Date:
+                <p className={`text-[#777777]  text-sm line-clamp-2 mb-4`}>
+                  <span className="font-bold">Author: </span>
+                  {book.author_name}
+                </p>
+                <p className={`text-[#79494B]  text-sm line-clamp-2 mb-4`}>
+                  <span className="font-bold">published Date: </span>
+
                   {new Date(book.published_date).toISOString().split("T")[0]}
                 </p>
 
-                <p className="text-[#777777] font-bold text-xs line-clamp-2">
+                <p className="text-[#777777] text-xs line-clamp-2">
+                  <span className="font-bold">Description: </span>
                   {book.description}
                 </p>
                 <div className="flex justify-center items-center">

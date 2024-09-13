@@ -9,10 +9,12 @@ import { IGetAllBookReturn } from "@src/types/lib/book-handler";
 export default async function BooksPage({ searchParams }: IProductPage) {
   const currentPage: string = searchParams?.page || "1";
   const searchBy: string = searchParams?.searchBy || "";
+  const author_id: string = searchParams?.author || "";
   const requestForGetAllBook: IGetAllBookReturn = await getAllBooks({
     currentPage: currentPage,
     dataLimit: configProductDataLimit,
     searchBy,
+    author_id,
   });
   return (
     <section>
