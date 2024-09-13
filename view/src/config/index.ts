@@ -1,1 +1,1 @@
-export const configProductDataLimit: number = 6;
+export const configProductDataLimit: number = 20;

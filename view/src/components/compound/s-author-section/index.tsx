@@ -45,7 +45,7 @@ export async function SAuthorSection({
                 </p>
                 <div className="flex justify-center items-center">
                   <CRedirectButton
-                    btnText="View Details"
+                    btnText="Show Author Details"
                     colorSchema={BtnColorSchema.SolidBgWhiteTextGreen}
                     isArrow={false}
                     isOpenNewTab={false}
