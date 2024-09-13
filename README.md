@@ -43,6 +43,18 @@
 - **Single Book Page**
   <img src = "view/public/doc/demo/single-book-page.png"  >
 
+## Live Link
+
+[Server](https://m360ict-book-library-task.onrender.com/api/v1)
+[Client](https://m360ict-book-library-task.vercel.app/)
+
+## Login info for live link test
+
+```bash
+  email: Colin_Bruen@gmail.com
+  password: author123
+```
+
 ## Support
 
 For support, sadmanishopnil@gmail.com
