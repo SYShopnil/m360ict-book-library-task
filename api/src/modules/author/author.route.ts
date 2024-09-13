@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { registerNewAuthor, authorLogin } from './auth.controller';
+import {
+  registerNewAuthor,
+  authorLogin,
+  loggedInUserHandler,
+} from './auth.controller';
 import {
   getAuthors,
   getAuthorById,
@@ -17,6 +21,7 @@ const router = Router();
 router.get('/authors', auth, getAuthors);
 router.get('/authors/:id', validateIndividualAuthorData, auth, getAuthorById);
 router.get('/test/author/insert', insertFakeAuthorForTest); //fake api to store 50 authors for test
+router.get('/auth/loggedIn/user', auth, loggedInUserHandler);
 
 router.post('/authors', validateAuthor, registerNewAuthor);
 router.post('/author/login', validateAuthorLogin, authorLogin);
