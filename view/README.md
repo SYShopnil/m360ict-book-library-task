@@ -6,8 +6,6 @@
 
 **Test**: Jest
 
-**Documentation**: Lucidchart
-
 ## Demo
 
 - **Login page**
@@ -16,31 +14,36 @@
 - **Profile page of User**
   <img src = "public/doc/demo/profilePageOne.png"  >
 
-- **Profile page of Admin**
-  <img src = "public/doc/demo/profilePageTwo.png"  >
+- **All Author Page**
+  <img src = "public/doc/demo/all-author-page.png"  >
 
-- **All Product Page**
-  <img src = "public/doc/demo/showAllProductPage.png"  >
+- **Single Author Page**
+  <img src = "public/doc/demo/single-author-page.png"  >
 
-- **Single Product Page**
-  <img src = "public/doc/demo/singleProductPage.png"  >
+- **All Book Page**
+  <img src = "public/doc/demo/all-book-page.png"  >
 
-- **User List Page**
-  <img src = "public/doc/demo/userListPage.png"  >
+- **Single Book Page**
+  <img src = "public/doc/demo/single-book-page.png"  >
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/SYShopnil/ATPL-Task.git
+  git clone https://github.com/SYShopnil/m360ict-book-library-task.git
 ```
 
 Go to the project directory
 
 ```bash
   cd
-  ATPL-Task
+  m360ict-book-library-task
+```
+
+```bash
+  cd
+  view
 ```
 
 Install dependencies
