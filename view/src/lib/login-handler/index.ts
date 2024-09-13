@@ -1,14 +1,9 @@
 "use server";
 import { cookies } from "next/headers";
-import {
-  ILoginController,
-  ILoginControllerResponse,
-} from "@src/types/lib/login-handler";
-import { searchIndividualUserByEmail } from "../user-handler";
+import { ILoginController } from "@src/types/lib/login-handler";
 import { redirect } from "next/navigation";
 import { EAuth } from "@src/types/common";
 import axios from "axios";
-import { Authorization } from "../authorization";
 
 export async function LoginController({
   email,
@@ -31,8 +26,6 @@ export async function LoginController({
     redirectPath = "/unAuthorized";
     console.log(err);
   } finally {
-    console.log({ redirectPath });
-    console.log(`hello wordl`);
     if (redirectPath) {
       redirect(redirectPath);
     } else {

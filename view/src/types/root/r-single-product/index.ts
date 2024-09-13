@@ -1,3 +1,4 @@
+import { IBook } from "@src/types/lib/book-handler";
 import {
   IAuthor,
   IGetIndividualProductByIdReturn,
@@ -10,5 +11,6 @@ export interface IRSinglePage {
   children: React.ReactNode;
   imageUrl: string;
   imageName: string;
-  author: IAuthor | null;
+  author?: IAuthor | null;
+  book?: IBook | null;
 }

@@ -1,5 +1,3 @@
-import { BtnColorSchema } from "@src/types/root";
-import { CRedirectButton } from "../button";
 import Image from "next/image";
 import { EDataTestId } from "@src/types/common";
 import { ISCard } from "@src/types/root/s-product-card";
@@ -21,22 +19,7 @@ export function SCard({ image, name, children }: ISCard) {
           width={300}
         />
       </div>
-      <div className={`h-[11.125rem] space-y-2 `}>
-        {/* <p className="text-[#777777] font-bold text-lg">{name}</p>
-        <p className={`text-[#79494B] font-bold text-sm line-clamp-2 mb-4`}>
-          {desc}
-        </p>
-        <div className="flex justify-center items-center">
-          <CRedirectButton
-            btnText="View Details"
-            colorSchema={BtnColorSchema.SolidBgWhiteTextGreen}
-            isArrow={false}
-            isOpenNewTab={false}
-            redirectLink={`${redirectLink}/${productId}`}
-          />
-        </div> */}
-        {children}
-      </div>
+      <div className={`h-[11.125rem] space-y-2 `}>{children}</div>
     </div>
   );
 }

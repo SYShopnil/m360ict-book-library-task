@@ -5,10 +5,10 @@ import { EAuth } from "./types/common";
 const authProtectedRoute = [
   "/dashboard",
   "/dashboard/profile",
-  "/dashboard/userList",
-  "/dashboard/products",
-  "/dashboard/products/[id]",
-  "",
+  "/dashboard/books",
+  "/dashboard/books/[id]",
+  "/dashboard/authors",
+  "/dashboard/authors/[id]",
 ];
 
 export function middleware(request: NextRequest) {

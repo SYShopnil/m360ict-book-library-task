@@ -1,16 +1,8 @@
-import {
-  Button,
-  CRedirectButton,
-  RSingleProduct,
-  SLoading,
-} from "@src/components/root";
+import { CRedirectButton, SLoading } from "@src/components/root";
 import { RSinglePage } from "@src/components/root/r-single-product";
 import { getIndividualAuthorById } from "@src/lib/author-handler";
 import { ISingleProductPage } from "@src/types/app/dashboard/products/[id]";
-import {
-  IGetIndividualAuthorByIdReturn,
-  IGetIndividualProductByIdReturn,
-} from "@src/types/lib/product-handler";
+import { IGetIndividualAuthorByIdReturn } from "@src/types/lib/product-handler";
 import { BtnColorSchema } from "@src/types/root";
 import { Suspense } from "react";
 
@@ -62,10 +54,12 @@ export default async function SingleAuthorPage({
                 <div
                   className={`flex justify-center  lg:justify-start items-center lg:items-start`}
                 >
-                  <Button
+                  <CRedirectButton
                     btnText={`Show ${author?.name}'s books`}
                     colorSchema={BtnColorSchema.SolidBgGrayTextViolet}
                     isArrow={false}
+                    isOpenNewTab={false}
+                    redirectLink={`/dashboard/books?author=${author?.id}`}
                   />
                 </div>
               </div>

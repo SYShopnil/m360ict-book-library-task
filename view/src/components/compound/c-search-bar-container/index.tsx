@@ -1,7 +1,7 @@
 "use client";
 
 import { CSearchBar } from "@src/components/root/search-bar";
-import { searchBarHandler } from "@src/lib/author-handler";
+import { redirectToAnyUrl } from "@src/lib/author-handler";
 import { EDataTestId } from "@src/types/common";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -12,7 +12,7 @@ export const CProductSearchBarContainer = ({ params }: { params: string }) => {
     const searchInput = `?${params}=` + inputData;
     const redirectUrl = `${path}${searchInput}`;
 
-    await searchBarHandler(redirectUrl);
+    await redirectToAnyUrl(redirectUrl);
   };
   return (
     <div data-testid={EDataTestId.CProductSearchBarContainer}>

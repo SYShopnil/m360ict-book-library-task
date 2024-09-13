@@ -7,8 +7,8 @@ import React from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ATPL-Task",
-  description: "This is a job task of ATPL",
+  title: "Bookstore-Task",
+  description: "This is a job task of m360ict",
 };
 export const fetchCache = "force-no-store";
 export default function RootLayout({

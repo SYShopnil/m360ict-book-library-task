@@ -23,7 +23,6 @@ export async function getAllAuthors({
   searchBy,
 }: IGetAllAuthors): Promise<IGetAllAuthorReturn> {
   try {
-    console.log({ searchBy });
     const cookieStore = cookies();
     const token = cookieStore.get(EAuth.AuthTokenCookieName);
     const url = `${process.env.SERVER_ORIGIN}/authors?page=${
@@ -34,7 +33,6 @@ export async function getAllAuthors({
         Authorization: `Bearer ${token?.value}`,
       },
     });
-    // console.log(response.status);
     if (response.status == 200) {
       const authors: IAuthor[] = response.data.authors;
       const currentPage: number = response.data.currentPage;
@@ -71,43 +69,8 @@ export async function getAllAuthors({
         },
       };
     }
-
-    // const getAllProduct: IProduct[] = await queryAllProductFromJson();
-    // const { dataLimit, skipData, totalPage } = paginationHandler(
-    //   limit,
-    //   getAllProduct,
-    //   currentPage
-    // );
-
-    // const getProductsAfterApplyingSkipAndLimitLogic: IProduct[] =
-    //   getPaginationProductByApplyingSkipLimitData(
-    //     getAllProduct,
-    //     dataLimit,
-    //     skipData
-    //   );
-    // if (getProductsAfterApplyingSkipAndLimitLogic.length) {
-    //   return {
-    //     message: `${getAllProduct.length} products has found!!`,
-    //     status: 202,
-    //     payload: {
-    //       products: getProductsAfterApplyingSkipAndLimitLogic,
-    //       totalPage: totalPage.toFixed(),
-    //       currentPage: +currentPage,
-    //     },
-    //   };
-    // } else {
-    //   return {
-    //     message: `No Product found!!!`,
-    //     status: 404,
-    //     payload: {
-    //       products: getProductsAfterApplyingSkipAndLimitLogic,
-    //       totalPage: totalPage.toFixed(),
-    //       currentPage: 0,
-    //     },
-    //   };
-    // }
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return {
       message: `Some things went wrong into product fetch`,
       status: 404,
@@ -120,7 +83,7 @@ export async function getAllAuthors({
   }
 }
 
-export async function searchBarHandler(redirectUrl: string) {
+export async function redirectToAnyUrl(redirectUrl: string) {
   try {
   } catch (err) {
     console.log(err);

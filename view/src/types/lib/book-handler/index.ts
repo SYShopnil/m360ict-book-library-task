@@ -17,3 +17,9 @@ export interface IBook {
   authors_bio: string;
   id: number;
 }
+
+export interface IGetIndividualBookByIdReturn extends ICommonReturnData {
+  payload: {
+    book: IBook | null;
+  };
+}

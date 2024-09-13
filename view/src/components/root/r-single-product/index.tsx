@@ -1,21 +1,17 @@
-import { Button } from "../button";
-import { BtnColorSchema } from "@src/types/root";
 import Image from "next/image";
 import { EDataTestId } from "@src/types/common";
-import {
-  IRSinglePage,
-  IRSingleProduct,
-} from "@src/types/root/r-single-product";
+import { IRSinglePage } from "@src/types/root/r-single-product";
 
 export async function RSinglePage({
   children,
   imageName,
   imageUrl,
   author,
+  book,
 }: IRSinglePage) {
   return (
     <>
-      {author ? (
+      {author || book ? (
         <div
           data-testid={EDataTestId.RSingleProduct}
           className={`grid grid-cols-12 gap-2 px-[1.5rem]`}
@@ -39,7 +35,7 @@ export async function RSinglePage({
           </div>
         </div>
       ) : (
-        <div>No Product found</div>
+        <div>No Data found</div>
       )}
     </>
   );

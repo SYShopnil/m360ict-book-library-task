@@ -1,16 +1,13 @@
 "use server";
 import { configProductDataLimit } from "@src/config";
 import { EAuth } from "@src/types/common";
-import { redirect } from "next/navigation";
-import {
-  IAuthor,
-  IGetAllAuthorReturn,
-  IGetIndividualAuthorByIdReturn,
-} from "@src/types/lib/product-handler";
 import axios from "axios";
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { IBook, IGetAllBookReturn } from "@src/types/lib/book-handler";
+import {
+  IBook,
+  IGetAllBookReturn,
+  IGetIndividualBookByIdReturn,
+} from "@src/types/lib/book-handler";
 
 interface IGetAllBooks {
   currentPage: string;
@@ -23,7 +20,6 @@ export async function getAllBooks({
   dataLimit: limit,
   searchBy,
 }: IGetAllBooks): Promise<IGetAllBookReturn> {
-  console.log({ searchBy });
   try {
     const cookieStore = cookies();
     const token = cookieStore.get(EAuth.AuthTokenCookieName);
@@ -72,7 +68,7 @@ export async function getAllBooks({
       };
     }
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return {
       message: `Some things went wrong into book data fetch`,
       status: 404,
@@ -80,6 +76,47 @@ export async function getAllBooks({
         books: [],
         totalPage: "0",
         currentPage: 0,
+      },
+    };
+  }
+}
+
+export async function getIndividualBookById(
+  book_id: string
+): Promise<IGetIndividualBookByIdReturn> {
+  try {
+    const url = `${process.env.SERVER_ORIGIN}/books/${book_id}`;
+    const cookieStore = cookies();
+    const token = cookieStore.get(EAuth.AuthTokenCookieName);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token?.value}`,
+      },
+    });
+    if (response.status == 202) {
+      const book = response.data.book;
+      return {
+        message: `${book.name} has found!!!`,
+        status: 202,
+        payload: {
+          book,
+        },
+      };
+    } else {
+      return {
+        message: `No Author found`,
+        status: 404,
+        payload: {
+          book: null,
+        },
+      };
+    }
+  } catch (err) {
+    return {
+      message: `Somethings went wrong`,
+      status: 501,
+      payload: {
+        book: null,
       },
     };
   }
